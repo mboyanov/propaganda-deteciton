@@ -19,7 +19,14 @@ def get_consecutive_spans(arr):
 def get_char_spans(spans, doc):
     def get_char_span(span):
         start_token = doc[span[0]]
-        end_token = doc[span[1]-1]
+        end_token = doc[span[1] - 1]
+        # # expand around certain characters
+        # if start_token.lower_ in {'-','\'s'}:
+        #     start_idx = max(0, span[0] - 1)
+        #     end_idx = min(len(doc)-1, span[1])
+        #     start_token = doc[start_idx]
+        #     end_token = doc[end_idx]
+        #     print("expanded", doc[start_idx: end_idx+1])
         return start_token.idx, end_token.idx + len(end_token)
 
     return [get_char_span(s) for s in spans]

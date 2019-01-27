@@ -8,4 +8,4 @@ def annotation_loss(input, target):
     input = log_softmax(input,dim=-1)
     input = torch.transpose(input, 1, 3)
     target = torch.transpose(target, 1, 2)
-    return nll_loss(input, target, ignore_index=-1, weight=torch.FloatTensor([1, 10]).cuda())
+    return nll_loss(input, target, ignore_index=-1, weight=torch.FloatTensor([1, 20]).cuda())
