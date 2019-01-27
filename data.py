@@ -38,24 +38,24 @@ def read_data(directory):
 
 
 PROPAGANDA_TYPES = [
-    "Appeal_to_Authority",
-    "Appeal_to_fear-prejudice",
+  #  "Appeal_to_Authority",
+  #  "Appeal_to_fear-prejudice",
     "Bandwagon",
-    "Black-and-White_Fallacy",
+  #  "Black-and-White_Fallacy",
     "Causal_Oversimplification",
     "Doubt",
     "Exaggeration,Minimisation",
     "Flag-Waving",
     "Loaded_Language",
     "Name_Calling,Labeling",
-    "Obfuscation,Intentional_Vagueness,Confusion",
+  #  "Obfuscation,Intentional_Vagueness,Confusion",
     "Red_Herring",
     "Reductio_ad_hitlerum",
-    "Repetition",
+   # "Repetition",
     "Slogans",
-    "Straw_Men",
-    "Thought-terminating_Cliches",
-    "Whataboutism"
+  #  "Straw_Men",
+  #  "Thought-terminating_Cliches",
+ #   "Whataboutism"
 ]
 
 PT2ID = {y: x for (x, y) in enumerate(PROPAGANDA_TYPES)}
@@ -79,6 +79,7 @@ def pad_collate_concat(samples: BatchSamples, pad_idx: int = 1) -> Tuple[LongTen
 
 
 def _numericalize_labels_single(doc: Doc, doc_labels: list):
+    doc_labels = [dl for dl in doc_labels if dl[2] in PROPAGANDA_TYPES]
     res = np.zeros((len(doc), len(PROPAGANDA_TYPES)))
     token_idx = 0
     labels_idx = 0
@@ -93,7 +94,7 @@ def _numericalize_labels_single(doc: Doc, doc_labels: list):
         start_token_idx = token_idx
 
         while current_token.idx < current_label[1]:
-            label = BEGIN #if current_token.i == start_token_idx else INSIDE
+            label = BEGIN if current_token.i == start_token_idx else INSIDE
             print("Marking ", current_token.lower_,'as', PT2ID[current_label[2]])
             res[token_idx, PT2ID[current_label[2]]] = label
             token_idx += 1
@@ -125,7 +126,6 @@ class PropagandaDataset(Dataset):
         self.docs = docs
         self.labels = labels
         self.tokens = [[t.lower_ for t in doc] for doc in docs]
-        # TODO: get token spans
         self.token_spans = None
         self.labels_npy = numericalize_labels(docs, labels)
         self.numericalized_tokens = [vocab.numericalize(row) for row in self.tokens]

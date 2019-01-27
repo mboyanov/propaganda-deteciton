@@ -16,6 +16,4 @@ class MultiLinearDecoder(nn.Module):
         all_activs = [decoder(input)[0].unsqueeze(-2) for decoder in self.decoders]
         # shape bs x tl x num_anns x n_out
         res = torch.cat(all_activs, -2)
-
-
         return res, raw_outputs, outputs
