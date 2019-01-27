@@ -40,9 +40,9 @@ def read_data(directory):
 PROPAGANDA_TYPES = [
   #  "Appeal_to_Authority",
   #  "Appeal_to_fear-prejudice",
-    "Bandwagon",
+  #  "Bandwagon",
   #  "Black-and-White_Fallacy",
-    "Causal_Oversimplification",
+ #   "Causal_Oversimplification",
     "Doubt",
     "Exaggeration,Minimisation",
     "Flag-Waving",

@@ -2,7 +2,7 @@ from torch import nn
 from fastai.text.models import LinearDecoder
 import torch
 import torch.nn.functional
-
+from fastai.text import MultiBatchRNNCore
 class MultiLinearDecoder(nn.Module):
 
 
